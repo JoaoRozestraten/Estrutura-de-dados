@@ -1,0 +1,126 @@
+#include <stdio.h>
+#include <stdlib.h>
+//In,Ap,Print, cmp
+typedef struct no
+{
+    int info;
+    struct no *prox;
+}lista;
+
+lista* inn()
+{
+    return NULL;
+}
+
+lista* addir(lista *recebido, int num)
+{
+    lista* novo;
+    novo=(lista*)malloc(sizeof(lista));
+    if (novo!=NULL)
+    {
+        novo->info=num;
+        novo->prox=recebido;
+        return novo;
+    }
+    else
+    {
+        return recebido;
+    }
+}
+
+void enc(lista* aux)
+{
+    int num,res;
+    printf("\n\tEscolha um numero");
+    scanf("%d",&num);
+    res=0;
+    while(aux!=NULL)
+    {
+        if(num==aux->info)
+        {
+            res=1;
+            break;
+        }
+        aux=aux->prox;
+    }
+
+    if(res==0)
+    {
+        printf("\n\tnonon");
+    }
+    else
+    {
+        printf("\n\tsimsim");
+    }
+}
+lista *apg (lista *aux)
+{
+    lista *aux2;
+    while(aux!=NULL)
+    {
+        aux2=aux;
+        aux=aux->prox;
+        free(aux2);
+    }
+    return aux;
+}
+void lei(lista *aux)
+{
+    if (aux==NULL)
+    {
+        printf("\n\tlista sem nd vei\n\t");
+    }
+    else
+    {
+        printf("\n\tLISTA:");
+        while(aux!=NULL)
+        {
+            printf("\n\t%d",aux->info);
+            aux=aux->prox;
+        }
+    }
+}
+
+int main()
+{
+    lista * inicio;
+    inicio=inn();
+    int x;
+    int num;
+    while(0==0)
+    {
+        printf("\n\tEscolha uma op, 1- inn 2-immp, 3-app, 4-cmp, 5-limptela:");
+        scanf("%d",&x);
+        switch (x)
+        {
+            case 1:
+                printf("\n\tdigit:");
+                scanf("%d",&num);
+                inicio=addir(inicio,num);
+                break;
+
+            case 2:
+                lei(inicio);
+                break;
+
+            case 3:
+                inicio=apg(inicio);
+                break;
+
+            case 4:
+                enc(inicio);
+                break;
+
+            case 5:
+                system("cls");
+                break;
+
+            default:
+                printf("\n\top inval");
+                break;
+
+        }
+    }
+    return 0;
+
+}
