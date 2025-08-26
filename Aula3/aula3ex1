@@ -1,0 +1,184 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct no
+{
+    int info;
+    struct no *prox;
+}lista;
+
+lista *inn(lista *recebido,int num)
+{
+    lista *novo;
+    novo=(lista*)malloc(sizeof(lista));
+    if (novo!=NULL)
+    {
+        novo->info=num;
+        novo->prox=recebido;
+        return novo;
+    }
+    else
+    {
+        return recebido;
+    }
+
+}
+
+lista *rm(lista *aux)
+{
+    lista *aux2;
+    if(aux!=NULL)
+    {
+        aux2=aux;
+        aux=aux->prox;
+        free(aux2);
+    }
+    return aux;
+
+}
+
+int ach(lista *aux,int num)
+{
+    int r=0;
+    while(aux!=NULL)
+    {
+        if(aux->info==num)
+        {
+            printf("\n\tO numero existe aqui");
+            return 1;
+        }
+        aux=aux->prox;
+    }
+    printf("\n\tNumero nao encontrado");
+    return 0;
+
+}
+
+
+void lei(lista *aux)
+{
+    if(aux==NULL)
+    {
+        printf("\n\tNao tem nd na lista");
+    }
+    else
+    {
+        while(aux!=NULL)
+        {
+            printf("\n\t%d",aux->info);
+            aux=aux->prox;
+        }
+    }
+
+}
+
+void qtd(lista *aux)
+{
+    int soma=0;
+    int tot=0;
+    while(aux!=NULL)
+    {
+        soma=soma+(aux->info);
+        aux=aux->prox;
+        tot++;
+    }
+    printf("\n\tA quantidade de elementos eh: %d e a soma %d",tot,soma);
+}
+
+lista * inn2(lista *recebido)
+{
+    int n;
+    lista *aux,*novo;
+    aux=recebido;
+    printf("\n\tEscolha o numero");
+    scanf("%d",&n);
+    novo=(lista*)malloc(sizeof(lista));
+    if (novo!=NULL)
+    {
+        novo->info=n;
+        novo->prox=NULL;
+        if(recebido!=NULL)
+        {
+            while(aux->prox!=NULL)
+            {
+                aux=aux->prox;
+            }
+            aux->prox=novo;
+            return recebido;
+        }
+        else
+        {
+
+            return novo;
+        }
+    }
+}
+
+lista * rmall(lista *aux)
+{
+    lista *aux2;
+
+
+    while(aux!=NULL)
+    {
+        aux2=aux;
+        aux=aux->prox;
+        free(aux2);
+    }
+    return aux;
+}
+int main()
+{
+    int op;
+    int i=0;
+    int num;
+    int lixo;
+    lista *inicio;
+
+    inicio=NULL;
+    while(i==0)
+    {
+        printf("\n\tEscolha uma op, 1-in(no comeco), 2-lei(mt), 3-rm, 4-cmp, 5-qtd, 6-rmall, 7-sair, 8-in(nofinal) 9-rm(nofinal): ");
+        scanf("%d",&op);
+        switch (op)
+        {
+            case 1:
+                printf("\n\tQual numero vc gostaria de adicionar: ");
+                scanf("%d",&num);
+                inicio=inn(inicio,num);
+                break;
+            case 2:
+                printf("\n\tLISTA:");
+                lei(inicio);
+                break;
+            case 3:
+                printf("\n\tRemovendo");
+                inicio=rm(inicio);
+                break;
+            case 4:
+                printf("\n\tQual numero vc quer saber se tem na lista: ");
+                scanf("%d",&num);
+                lixo=ach(inicio,num);
+                break;
+            case 5:
+                qtd(inicio);
+            case 6:
+                inicio=rmall(inicio);
+                break;
+            case 7:
+                inicio=rmall(inicio);
+                i=1;
+                break;
+            case 8:
+                inicio=inn2(inicio);
+                break;
+            case 9:
+                //inicio=rm2(inicio);
+                break;
+            default:
+                printf("\n\tEscolha uma operacao valida");
+                break;
+        }
+
+    }
+}
