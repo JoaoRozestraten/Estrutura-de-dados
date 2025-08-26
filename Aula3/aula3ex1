@@ -178,7 +178,7 @@ int main()
             default:
                 printf("\n\tEscolha uma operacao valida");
                 break;
-        }
-
-    }
+                }
+    }
+    return 0;
 }
