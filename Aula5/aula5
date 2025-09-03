@@ -1,0 +1,139 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "FILA.h"
+
+
+
+int contp(Fila* f)
+{
+    int q=0;
+    Nos * aux;
+    aux=f->ini;
+    while(aux!=NULL)
+    {
+        if(aux->info%2==0)
+        {
+            q++;
+        }
+        aux=aux->prox;
+    }
+    return q;
+}
+
+Fila* rmex(Fila* f, int num)
+{
+    Fila *faux;
+    int lixo;
+    faux=CriaFila();
+    while(f->ini!=NULL)
+    {
+        if(f->ini->info!=num)
+        {
+            InsereFila(faux,RetiraFila(f));
+        }
+        else
+        {
+            RetiraFila(f);
+        }
+    }
+    liberaFila(f);
+    return(faux);
+}
+
+void impopar(Fila *f, Fila *par, Fila *impar)
+{
+    Nos *aux=f->ini;
+    while(aux!=NULL)
+    {
+        if(aux->info%2==0)
+        {
+            InsereFila(par,aux->info);
+        }
+        else
+        {
+            InsereFila(impar,aux->info);
+        }
+        aux=aux->prox;
+    }
+
+}
+
+void impoparret(Fila *f, Fila *par, Fila *impar)
+{
+    Nos *aux=f->ini;
+    while(aux!=NULL)
+    {
+        if(aux->info%2==0)
+        {
+            InsereFila(par,aux->info);
+        }
+        else
+        {
+            InsereFila(impar,aux->info);
+        }
+        aux=aux->prox;
+    }
+    liberaFila(f);
+}
+
+void separappilha(Fila *f, Pilha* p1, Pilha* p2)
+{
+    Nos *aux=f->ini;
+    while(aux!=NULL)
+    {
+        if(aux->info>20)
+        {
+            push(p1,aux->info);
+        }
+        else
+        {
+            push(p2,aux->info);
+        }
+        aux=aux->prox;
+    }
+
+}
+
+int main()
+{
+    Fila *f1;
+    f1 = CriaFila();
+    InsereFila(f1,0);
+    InsereFila(f1,15);
+    InsereFila(f1,6);
+    InsereFila(f1,9);
+    printf("\n\tQ:%d\n\t",contp(f1));
+    f1=rmex(f1,15);
+    printf("\n\t%d\n\t",RetiraFila(f1));
+    printf("\n\t%d\n\t",RetiraFila(f1));
+    printf("\n\t%d\n\t",RetiraFila(f1));
+
+    Fila *par,*impar;
+    par=CriaFila();
+    impar=CriaFila();
+    InsereFila(f1,0);
+    InsereFila(f1,15);
+    InsereFila(f1,6);
+    InsereFila(f1,9);
+    impopar(f1,par,impar);
+    imprimeFila(par);
+    imprimeFila(impar);
+    imprimeFila(f1);
+    impoparret(f1,par,impar);
+
+    f1 = CriaFila();
+    InsereFila(f1,0);
+    InsereFila(f1,15);
+    InsereFila(f1,6);
+    InsereFila(f1,45);
+    InsereFila(f1,459);
+    Pilha *p1,*p2;
+    p1=CriaPilha();
+    p2=CriaPilha();
+    separappilha(f1,p1,p2);
+    printf("\n\tSOCORRO\n\t");
+    imprime(p1);
+    imprime(p2);
+    liberaPilha(p1);
+    liberaPilha(p2);
+}
