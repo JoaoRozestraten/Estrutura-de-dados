@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "PILHA.h"
+
+
+
+int main()
+{
+    Pilha *p;
+
+    p=CriaPilha();
+    push(p,5);
+    if(vaziaPilha(p)==1)
+    {
+        printf("\n\tEsta mt");
+    }
+    else
+    {
+        printf("\n\tNao Esta mt");
+    }
+
+    printf("%d",lenP(p));
+}
